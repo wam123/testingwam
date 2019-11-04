@@ -213,3 +213,243 @@ namespace xxxxx.123Tests.123Payment.123PageObjects
         public IWebElement TermsCheckBox => this.driver.FindElement(By.XPath("//button[@data-automation='TermsAndConditionsConsent']"));
     }
 }
+
+
+
+Practice
+
+namespace Practice3
+{
+    public class Program
+    {
+        //Write a code snippet to launch Chrome browser using Selenium WebDriver?
+        IWebDriver driver = new ChromeDriver();
+
+        public void Initialize()
+        {
+            //Navigate to url
+            driver.Navigate().GoToUrl("www.test.com");
+
+            //Maximise window
+            driver.Manage().Window.Maximize();
+            Console.WriteLine("Navigated to site");
+        }
+   
+        public void Execute()
+
+        {
+            // Get current url 
+
+            driver.Navigate().GoToUrl("www.test.com");
+            driver.Url = "hhtps\\test.com";
+
+
+            // Refresh page
+           
+            driver.Navigate().Refresh();
+            driver.FindElement(By.Id("test")).SendKeys(Keys.F5);
+          
+
+            // Delete all cookies
+
+            driver.Manage().Cookies.DeleteAllCookies();
+           
+
+            // Get Text from textbox
+
+            string TypedText = driver.FindElement(By.Id("test")).GetAttribute("value");
+            Console.WriteLine("value of the textbox is" + TypedText);
+
+            // Select Drop Down Menu DDL / SelectByText/SelectByValue/SlectByIndex
+            // (Selenium Select Class)
+
+            var option = driver.FindElement(By.Id("test"));
+            var SelectElement = new SelectElement(option);
+            SelectElement.SelectByText("henry");
+
+
+            Assert.IsTrue(driver.FindElement(By.Id("25-39kg")).Selected);
+
+            // Hover and Click (Selenium Action Class)
+
+            Actions action = new Actions(driver);
+            IWebElement element1 = driver.FindElement(By.Id("test"));
+            action.MoveToElement(element1).Build().Perform();
+            driver.FindElement(By.Id("test")).Click();
+
+
+            // Double Click (Selenium Action Class)
+
+            Actions actions2 = new Actions(driver);
+            IWebElement element2 = driver.FindElement(By.Id("test"));
+            actions2.DoubleClick(element2).Build().Perform();
+
+            Actions action55 = new Actions(driver);
+            IWebElement element55 = driver.FindElement(By.Id("test"));
+            action55.DoubleClick(element55).Build().Perform();
+
+            // Right click (Selenium Action Class)
+
+            Actions actions3 = new Actions(driver);
+            IWebElement element3 = driver.FindElement(By.Id("test"));
+            actions3.ContextClick(element3).Build().Perform();
+
+            //Scroll Down Window 
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("Scroll (0, 290);");
+
+            //Page Down  (Selenium Action Class)
+
+            Actions actions4 = new Actions(driver);
+            actions4.SendKeys(Keys.PageDown).Build().Perform();
+
+
+            // Static Wait /Sleep
+
+            Thread.Sleep(2000);
+
+            // clear text box 
+
+          
+
+            //  Send text/ keys
+
+            driver.FindElement(By.Id("texbox")).SendKeys("test");
+
+            // Click
+
+            driver.FindElement(By.Id("texbox")).Click();
+
+            // Click dynamic object/image
+
+            var CategoryLinks = driver.FindElements(By.Id("test"))[0];
+            CategoryLinks.Click();
+
+            // Verify Element displayed
+
+            IWebElement element6 = driver.FindElement(By.Id("test"));
+            Console.WriteLine(element6.Displayed);
+            //or use
+         
+
+            //Assert checkbox ticked 
+
+            Assert.IsTrue(driver.FindElement(By.XPath("test")).Selected);
+
+            // Assert Are Equal to / Page Title
+
+            Assert.AreEqual("bbc", driver.Title);
+
+            // Assert page source
+
+            string html = driver.PageSource;
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(html));
+
+            // Assert image displayed 
+
+            Assert.IsTrue(driver.FindElement(By.Id("henryjpeg")).Displayed);
+
+            // Assert page item using body tagname
+
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Base rate updated"));
+
+            // Assert is False checkbox not clicked
+
+            Assert.IsFalse(driver.FindElement(By.XPath("test")).Enabled);
+
+            // Navigate forward/ backwards
+
+            driver.Navigate().Back();
+
+
+            // Accept alert/dismiss
+
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+
+            //SWITCH TO NEW TAB POP UP which opens after a click
+            // handle multiple windows
+
+            var popups = driver.WindowHandles[1];
+            Assert.AreEqual(driver.SwitchTo().Window(popups).Url, "https test.com");
+            driver.SwitchTo().Window(driver.WindowHandles[1]).Close();
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+
+
+            // Implicit wait
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+      
+
+            // Explicit wait
+
+            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            //IWebElement myDynamicElement = wait.Until<IWebElement>(d => d.FindElement(By.Id("someDynamicElement")));
+            //   element7.Click();
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+            IWebElement element7 = wait.Until<IWebElement>(d => d.FindElement(By.Id("test")));
+            element7.Click();
+
+            // How to handle hidden elements in Selenium WebDriver?
+
+            IWebElement hiddenInput = driver.FindElement(By.Id("code"));
+            String value = hiddenInput.GetAttribute("value");
+
+            // Find broken links in a webpage
+
+            // List links = driver.FindElement(By.TagName("a"));
+
+            // How to Upload a file in Selenium WebDriver?
+
+            IWebElement UploadFiles = driver.FindElement(By.Id("searchbar"));
+            UploadFiles.SendKeys("C:\\pics\\me");
+
+
+            // How to switch between frames in Selenium?
+
+            driver.SwitchTo().ParentFrame();
+     
+
+            //Resize Browser Window ssize
+
+            driver.Manage().Window.Size = new Size(880, 940);
+
+            try
+            {
+                Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("test"));
+                 
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+          
+
+            // Switch Statement
+
+            //     public class WebDriverFactory
+            //{
+            //    public IWebDriver GetWebDriver(string BrowserName)
+            //    {
+            //        IWebDriver driver;
+            //        switch (BrowserName)
+            //        {
+            //            case "FireFox":
+            //                driver = new FirefoxDriver();
+            //                break;
+            //            case "InternetExplorer":
+            //                driver = new InternetExplorerDriver();
+            //                break;
+            //            default:
+            //                driver = new ChromeDriver();
+            //                break;
+            //        }
+
+            //        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+
+            //        return driver;
+            //    }
+            //}
